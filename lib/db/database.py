@@ -30,12 +30,6 @@ def gravatar(email, size=100, rating='g', default='retro', force_default=False,
         link = link + "&f=y"
     return link
 
-class Post(db.Model):
-    username = db.StringProperty(required = True)
-    user     = db.IntegerProperty()
-    subject  = db.StringProperty(required = True)
-    content  = db.TextProperty(required = True)
-    created  = db.DateTimeProperty(auto_now_add = True)
     
 class User(db.Model):
 	firstName = db.StringProperty(required = True)
@@ -45,7 +39,3 @@ class User(db.Model):
 	password = db.StringProperty(required = True)
 	birthday = db.DateProperty(required = True)
 
-class Message(db.Model):
-    name = db.StringProperty()
-    email = db.StringProperty()
-    message = db.StringProperty()

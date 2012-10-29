@@ -21,29 +21,14 @@ IS_MEMBER    = 3
 
 privileges = {CAN_POST : "can post", CAN_MAKEUSER : "can create users", IS_MEMBER : "is member"}
 
-rand_word = ''
-
 class MainHandler(Handler):
     def get(self):
         self.login()            
-        posts = list(db.GqlQuery("SELECT * FROM Post ORDER BY created DESC"))
-        self.render("index.html", user = self.user, post = posts)
-
-class BlogHandler(Handler):
-    def get(self):
-        self.login()
-        
-        
-        #user = User(username="admin", password=make_pw_hash('admin', 'admin1234'), isadmin=True)
-        #user.put()
-        
-        posts = db.GqlQuery("SELECT * FROM Post ORDER BY created DESC")      
-        self.render("blog.html", user = self.user, posts = list(posts))
+        self.render("index.html", user = self.user)
         
 class LoginHandler(Handler):
      def get(self):
         self.login()
-                
         self.render('login.html', user = self.user, remember = "false")
 
      def post(self):        
@@ -78,10 +63,8 @@ class MembersHandler(Handler):
         members = db.GqlQuery("SELECT * FROM User")
         members = list(members)    
         members = sorted(members, key=lambda member: member.username.lower())
-       
         
         self.render("members.html", user = self.user, users=members, display="none")
-        
 
      def post(self):
         self.login()        
@@ -361,7 +344,6 @@ class DeleteUserHandler(Handler):
 
         
 app = webapp2.WSGIApplication([('/', MainHandler),
-                               ('/blog', BlogHandler),
                                ('/login', LoginHandler),
                                ('/logout', LogoutHandler),
 							   ('/members', MembersHandler),

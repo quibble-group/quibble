@@ -38,16 +38,12 @@ class Post(db.Model):
     created  = db.DateTimeProperty(auto_now_add = True)
     
 class User(db.Model):
-    currentProjects = db.StringListProperty()
-    pastProjects    = db.StringListProperty()
-    team            = db.StringProperty()
-    quote           = db.TextProperty()    
-    username        = db.StringProperty(required = True)
-    fullname        = db.StringProperty()
-    password        = db.StringProperty(required = True)
-    email           = db.StringProperty()
-    isadmin         = db.BooleanProperty(required = True)
-    privileges      = db.ListProperty(int)
+	firstName = db.StringProperty(required = True)
+	lastName = db.StringProperty(required = True)
+	userName = db.StringProperty(required = True)
+	email = db.StringProperty(required = True)
+	password = db.StringProperty(required = True)
+	birthday = db.DateProperty(required = True)
 
 class Message(db.Model):
     name = db.StringProperty()

@@ -29,28 +29,6 @@ class MainHandler(Handler):
         posts = list(db.GqlQuery("SELECT * FROM Post ORDER BY created DESC"))
         self.render("index.html", user = self.user, post = posts)
 
-class ContactHandler(Handler):
-    #def genRandomWord(self):
-    #    theword = ""
-    #    for i in range(6):
-    #        theword += random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
-    #    return theword
-    def get(self):
-        self.login()  
-        posts = db.GqlQuery("SELECT * FROM Post ORDER BY created DESC")      
-        messages = db.GqlQuery("SELECT * FROM Message")# ORDER BY ID")
-        self.render("contact.html", user = self.user, messages = list(messages), posts = list(posts))
-    def post(self):
-        self.login()
-        posts = db.GqlQuery("SELECT * FROM Post ORDER BY created DESC")      
-        messages = db.GqlQuery("SELECT * FROM Message")# ORDER BY ID")
-        sender_name = self.request.get('sender_name')
-        sender_email = self.request.get('sender_email')
-        sender_message = self.request.get('sender_message')
-        if sender_message != "":
-            newMessage = Message(name=sender_name, email=sender_email, message=sender_message)
-            newMessage.put()
-        self.render("contact.html", user=self.user, messages = list(messages), posts = list(posts))
 class BlogHandler(Handler):
     def get(self):
         self.login()
@@ -226,24 +204,6 @@ class EditPostHandler(Handler):
         else:
             self.redirect("/login")
         
-
-
-class SponsorsHandler(Handler):
-    def get(self):
-        self.login()        
-
-        self.render("sponsors.html", user = self.user)
-
-
-        
-class ImageHandler(Handler):
-    def get(self):
-        user = db.get(self.request.get("id"))
-        if user.userimage:
-            self.response.headers['Content-Type'] = "image/png"
-            self.response.out.write(user.userimage)
-        else:
-            self.error(404)
             
 class ProfileHandler(Handler):
     def get(self, res):
@@ -397,62 +357,18 @@ class DeleteUserHandler(Handler):
                 self.redirect("/members")
         else:
             self.redirect("/login")
-        
-class FirstHandler(Handler):
-    def get(self):
-        self.login()
-        self.render("first.html", user = self.user)
-        
-class GalleryHandler(Handler):
-    def get(self):
-        self.login()
-        self.render("gallery.html", user = self.user)
-                  
 
-class UpdatePrivilegesHandler(Handler):
-    def post(self):
-        self.login()
-        page = "/"
-        if self.user and self.user.isadmin:
-            privs    = self.request.get_all("privileges")
-            user_id = self.request.get("user")
-            
-            for i in range(len(privs)):
-                if privs[i].isdigit():
-                    privs[i] = int(privs[i])                
-           
-            if user_id.isdigit():
-                user = get_user(int(user_id))
-                if user:
-                    user.privileges = privs
-                    user.put()
-                    update_user(user)
-                    page = "/profile/%s" % user.username
-                    
-        self.redirect(page)
 
-class ResourcesHandler(Handler):
-    def get(self):
-        self.login()        
-        
-        self.render("resources.html", user = self.user)
         
 app = webapp2.WSGIApplication([('/', MainHandler),
                                ('/blog', BlogHandler),
                                ('/login', LoginHandler),
                                ('/logout', LogoutHandler),
+							   ('/members', MembersHandler),
                                ('/newpost', NewpostHandler),
-                               ('/members', MembersHandler),
-                               ('/sponsors', SponsorsHandler),
                                ('/deletepost', DeletepostHandler),
                                ('/editpost/(\d+)', EditPostHandler),
-                               ('/image', ImageHandler),
                                ('/profile/(.+)', ProfileHandler),
                                ('/editprofile/(.+)', EditProfileHandler),
-                               ('/deleteuser', DeleteUserHandler),
-                               ('/first',FirstHandler),
-                               ('/gallery', GalleryHandler),
-                               ('/updateprivileges', UpdatePrivilegesHandler),
-							   ('/resources', ResourcesHandler),
-                               ('/contact', ContactHandler)],
+                               ('/deleteuser', DeleteUserHandler)],
                                debug=True)

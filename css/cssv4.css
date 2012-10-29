@@ -27,7 +27,7 @@ a:link, a:visited {
 a:hover, a:active { 
 	color: #600;}  
 
-p { margin-bottom: .2em;}
+p { margin-bottom: .75em;}
 
 blockquote {font-style: italic;} cite {}  q {}  
 thead th {padding: .5em .4em; text-align: left;} thead td {}  

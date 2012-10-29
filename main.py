@@ -50,6 +50,11 @@ class LoginHandler(Handler):
                 self.render('login.html',username=username, error = "invalid password", remember=remember)
         else:
             self.render('login.html',username=username, error = "invalid login")
+            
+class SignupHandler(Handler):
+	def get(self):
+		self.login()
+		self.render('signup.html', user = self.user)
 
 class LogoutHandler(Handler):
     def get(self):
@@ -352,5 +357,6 @@ app = webapp2.WSGIApplication([('/', MainHandler),
                                ('/editpost/(\d+)', EditPostHandler),
                                ('/profile/(.+)', ProfileHandler),
                                ('/editprofile/(.+)', EditProfileHandler),
-                               ('/deleteuser', DeleteUserHandler)],
+                               ('/deleteuser', DeleteUserHandler),
+                               ('/signup', SignupHandler)],
                                debug=True)

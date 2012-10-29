@@ -1,0 +1,41 @@
+{% extends "loginsignup.html" %}
+{% block content %}
+<div id="index-content">
+	<section id="left">
+		<h2>Make an Account Today</h2>
+		<p>Come on, it's free.  What do you have to lose?  Join the online
+			massive online community.</p>
+	</section><!-- /#left -->
+	<section id="right">
+		<h2>Signup</h2>
+		<hr>
+		<form method="post" id="signup-form">			
+		<table>
+			<tr>
+				<td class="label">First Name: </td>
+				<td><input type="text" name="first_name"></td>
+			</tr>
+			<tr>
+				<td class="label">Last Name:</td>
+				<td><input type="text" name="last_name"></td></tr>
+			<tr>
+				<td class="label">Username: </td>
+				<td><input type="text" name="username" value="{{username}}"></td>    
+			</tr>
+			<tr>
+				<td class="label">Password: </td>
+				<td><input type="password" name="password" value="{{password}}"></td>    
+			</tr>
+			<tr>
+				<td class="label">Birthday: </td>
+				<td><input type="date" name="birthday"></td></tr>
+			<tr>
+				<td><input type="submit" class="button"></td>
+				<td><div class="error">{{error}}</div></td>
+			</tr>
+		</table>
+		</form><!-- /#login-form-->	
+		<br>
+	</section><!-- /#right -->
+</div><!-- /#index-content -->
+{% endblock %}

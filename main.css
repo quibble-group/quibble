@@ -1,0 +1,66 @@
+/*
+ * main.css
+ * quibble social networking site
+ * Nick Yaculak
+ */
+
+@import url("./reset.css");
+
+body {
+	background: white;
+	color: black;
+	font-size: 100%;
+	line-height: 1;
+	font-family: Ubuntu, sans-serif;
+	text-align: left;
+}
+
+/* Headings */ 
+h2 {font-size: 1.571em;}	/* 22px */ 
+h3 {font-size: 1.429em;}	/* 20px */ 
+h4 {font-size: 1.286em}		/* 18px */ 
+h5 {font-size: 1.143em}		/* 16px */
+h6 {font-size: 1em}	   		/* 14px */  
+h2, h3, h4, h5, h6 { 
+	display: inline-block;
+	font-weight: 400; 
+	line-height: 1.1;
+	margin-bottom: .3em; 
+	color: red;
+}
+header, section, footer, aside, nav, article, figure, login{ display: block;} 
+a:link, a:visited { 
+	color: red;
+	text-decoration: underline; 
+} 
+a:hover, a:active { 
+	color: #600;
+}
+
+#container {
+	position: relative;
+	width: 1000px;
+	height: auto;
+	margin: 0 auto;
+	background-color: #eee;
+}
+
+.content {
+	padding: 20px;
+}
+
+#banner {
+	background-color: red;
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	margin: 5px 0;
+}
+#banner h2 {
+	color: white;
+}
+#about-quibble {
+	display: inline-block;
+	float: left;
+	width: 48%;
+}
